@@ -1,4 +1,36 @@
 // Create variables targetting the relevant DOM elements here 👇
+//Random Title Generator
+var randomTitle = getRandomTitle(titles);
+var mainTitle = document.querySelector(".cover-title");
+
+function getRandomTitle(titles) {
+	return titles[Math.floor(Math.random()*titles.length)];
+}
+
+mainTitle.innerText = randomTitle;
+
+//Random Descriptor Generator
+function getRandomDescriptor(descriptors) {
+	return descriptors[Math.floor(Math.random()*descriptors.length)];
+}
+var randomDescriptor = getRandomDescriptor(descriptors);
+var mainDescriptor = document.querySelector(".tagline-1");
+mainDescriptor.innerText = randomDescriptor
+
+var randomDescriptor = getRandomDescriptor(descriptors);
+var mainDescriptor = document.querySelector(".tagline-2");
+mainDescriptor.innerText = randomDescriptor
+
+//Random Cover Generator
+function getRandomCover(covers) {
+  return covers[Math.floor(Math.random()*covers.length)];
+};
+
+var randomCover = getRandomCover(covers);
+var coverImage = document.querySelector(".cover-image");
+coverImage.src = randomCover;
+
+
 
 
 // We've provided a few variables below
