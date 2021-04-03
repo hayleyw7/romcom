@@ -71,6 +71,7 @@ makeMyBookButton.addEventListener("click", preventDefault);
 makeMyBookButton.addEventListener("click", pushSavedCoverInputs);
 makeMyBookButton.addEventListener("click", instantiateUserCover);
 saveCoverButton.addEventListener("click", saveCover);
+saveCoverButton.addEventListener("click", showButtonsInSavedCoversView);
 
 // Create your event handlers and other functions here 👇
 // WHAT EXACTLY HAPPENS WHEN DO SOMETHING - THESE ARE ALL FUNCTIONS
@@ -123,6 +124,7 @@ function showButtonsInSavedCoversView() {
   newRandomCoverButton.classList.add("hidden");
   saveCoverButton.classList.add("hidden");
   homeButton.classList.remove("hidden");
+  viewSavedCoversButton.classList.add("hidden");
 }
 
 function showButtonsInHomeView() {
