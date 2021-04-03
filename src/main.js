@@ -7,15 +7,24 @@ var descriptor2 = document.querySelector(".tagline-2");
 
 //iteration2
 
-var makeYourOwnCoverButton = document.querySelector(".make-new-button")
-var saveCoverButton = document.querySelector(".save-cover-button")
-var viewSavedCoversButton = document.querySelector(".view-saved-button")
+var makeYourOwnCoverButton = document.querySelector(".make-new-button");
+var saveCoverButton = document.querySelector(".save-cover-button");
+var viewSavedCoversButton = document.querySelector(".view-saved-button");
 var homeButton = document.querySelector(".home-button");
 var newRandomCoverButton = document.querySelector(".random-cover-button");
 
 var homeView = document.querySelector(".home-view");
 var formView = document.querySelector(".form-view");
-var savedCoversView = document.querySelector(".saved-view")
+var savedCoversView = document.querySelector(".saved-view");
+
+//iteration 3
+
+var userInputCover = document.querySelector(".user-cover");
+var userInputTitle = document.querySelector(".user-title");
+var userInputDescription1 = document.querySelector(".user-desc1");
+var userInputDescription2 = document.querySelector(".user-desc2");
+var mainCover = document.querySelector(".main-cover");
+var makeMyBookButton = document.querySelector(".create-new-book-button");
 
 
 // We've provided a few variables below
@@ -46,6 +55,16 @@ makeYourOwnCoverButton.addEventListener("click", goToMakeYourOwnPage);
 viewSavedCoversButton.addEventListener("click", showButtonsInSavedCoversView);
 homeButton.addEventListener("click", showButtonsInHomeView);
 
+saveCoverButton.addEventListener("click", pushSavedCoverInputs);
+saveCoverButton.addEventListener("click", instantiateUserCover);
+saveCoverButton.addEventListener("click", showButtonsInHomeView);
+//we were using the wrong button before, I updated it to be the purple
+//make my book button instead (added event listener, did not overwrite)
+//we will need to resolve these event listeners based on that alone
+makeMyBookButton.addEventListener("click", goToHomeView);
+makeMyBookButton.addEventListener("click", displayUserCover);
+makeMyBookButton.addEventListener("click", preventDefault);
+
 // Create your event handlers and other functions here 👇
 // WHAT EXACTLY HAPPENS WHEN DO SOMETHING - THESE ARE ALL FUNCTIONS
 
@@ -55,50 +74,37 @@ function getRandomIndex(array) {
   return Math.floor(Math.random()*array.length);
 };
 
-//iteration 1
-
-////cover image
-
 function getRandomCover() {
 	var randomCoverImageIndex = getRandomIndex(covers);
   coverImage.src = covers[randomCoverImageIndex];
 }
-
-////title
 
 function getRandomTitle() {
 	var randomTitleImageIndex = getRandomIndex(titles);
 	mainTitle.innerText = titles[randomTitleImageIndex];
 }
 
-////descriptor1
-
 function getRandomDescriptor1() {
 	var randomDescriptorImageIndex1 = getRandomIndex(descriptors);
 	descriptor1.innerText = descriptors[randomDescriptorImageIndex1];
 }
 
-////descriptor2
-
 function getRandomDescriptor2() {
 	var randomDescriptorImageIndex2 = getRandomIndex(descriptors);
-	descriptor2.innerText = descriptors[randomCoverImageIndex2];
+	descriptor2.innerText = descriptors[randomDescriptorImageIndex2];
 }
 
 //iteration2
+
 function goToMakeYourOwnPage() {
   formView.classList.remove("hidden");
-  //hide home page view
   homeView.classList.add("hidden");
   showButtonsInFormView();
 }
 
 function showButtonsInFormView() {
-////hide newRandomCoverButton
    newRandomCoverButton.classList.add("hidden");
-////hide saveCoverButton
    saveCoverButton.classList.add("hidden");
-////show homeButton
    homeButton.classList.remove("hidden")
 }
 
@@ -115,23 +121,74 @@ function showButtonsInSavedCoversView() {
 function showButtonsInHomeView() {
   homeButton.classList.add("hidden");
   homeView.classList.remove("hidden");
+  formView.classList.add("hidden");
   newRandomCoverButton.classList.remove("hidden");
   saveCoverButton.classList.remove("hidden");
 }
 
-//iteration2 - saved covers
+function instantiateUserCover() {
+  var newInstanceOfCover = new Cover(userInputCover.value, userInputTitle.value, userInputDescription1.value, userInputDescription2.value)
+  return newInstanceOfCover;
+  displayUserCover();
+}
 
-//when homeButton clicked:
-////hide homeButton
-homeButton.classList.add("hidden");
-////show homeView
-homeView.classList.remove("hidden");
-////show newRandomCoverButton
-newRandomCoverButton.classList.remove("hidden");
-////show saveCoverButton
-saveCoverButton.classList.remove("hidden");
+function displayUserCover() {
+  pushSavedCoverInputs();
+  mainTitle.innerText = titles[titles.length-1];
+  coverImage.src = covers[covers.length-1];
+  descriptor1.innerText = descriptors[descriptors.length-2];
+  descriptor2.innerText = descriptors[descriptors.length-1];
+}
 
-// We've provided one function to get you started
-// function getRandomIndex(array) {
-//   return Math.floor(Math.random() * array.length);
+function pushSavedCoverInputs() {
+	covers.push(userInputCover.value)
+	titles.push(userInputTitle.value)
+	descriptors.push(userInputDescription1.value)
+	descriptors.push(userInputDescription2.value)
+}
+
+function goToHomeView() {
+  formView.classList.add("hidden");
+  homeView.classList.remove("hidden");
+  showButtonsInHomeView();
+  preventDefault();
+}
+
+function preventDefault() {
+  event.preventDefault()
+}
+
+//in formView (goToMakeYourOwnPage i think?)
+//when saveCoverButton clicked:
+////saveCoverButton.addEventListener("click", pushSavedCoverInputs);
+////add strings in respective arrays:
+////function pushSavedCoverInputs() {
+////	covers.push(userInputCover)
+////	covers.push(userInputTitle)
+////	covers.push(userInputDescription1)
+////	covers.push(userInputDescription2)
+////}
+////create new instance of Cover class
+//////var newInstanceOfCover = new Cover(userInputCover, userInputTitle, userInputDescription1, userInputDescription2)
+
+//in formView (goToMakeYourOwnPage i think?)
+//when saveCoverButton clicked:
+
+////add strings in respective arrays:
+////function pushSavedCoverInputs() {
+////	covers.push(userInputCover)
+////	titles.push(userInputTitle)
+////	descriptors.push(userInputDescription1)
+////	descriptors.push(userInputDescription2)
+////}
+////create new instance of Cover class
+//////var newInstanceOfCover = new Cover(userInputCover, userInputTitle, userInputDescription1, userInputDescription2)
+
+// function displayUserCover() {
+//   //event.prevent.default();
+//   //console.log("working");
+//   mainTitle.innerText = userInputTitle.value;
+//   coverImage.innerText = userInputCover.value;
+//   descriptor1.innerText = userInputDescription1.value;
+//   descriptor2.innerText = userInputDescription2.value;
 // }
