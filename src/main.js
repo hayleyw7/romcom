@@ -23,7 +23,7 @@ var userInputCover = document.querySelector(".user-cover");
 var userInputTitle = document.querySelector(".user-title");
 var userInputDescription1 = document.querySelector(".user-desc1");
 var userInputDescription2 = document.querySelector(".user-desc2");
-var mainCover = document.querySelector(".main-cover");
+// var mainCover = document.querySelector(".main-cover");
 var makeMyBookButton = document.querySelector(".create-new-book-button");
 
 
@@ -55,15 +55,15 @@ makeYourOwnCoverButton.addEventListener("click", goToMakeYourOwnPage);
 viewSavedCoversButton.addEventListener("click", showButtonsInSavedCoversView);
 homeButton.addEventListener("click", showButtonsInHomeView);
 
-saveCoverButton.addEventListener("click", pushSavedCoverInputs);
-saveCoverButton.addEventListener("click", instantiateUserCover);
-saveCoverButton.addEventListener("click", showButtonsInHomeView);
-//we were using the wrong button before, I updated it to be the purple
-//make my book button instead (added event listener, did not overwrite)
-//we will need to resolve these event listeners based on that alone
+makeMyBookButton.addEventListener("click", pushSavedCoverInputs);
+makeMyBookButton.addEventListener("click", instantiateUserCover);
+makeMyBookButton.addEventListener("click", showButtonsInHomeView);
+
 makeMyBookButton.addEventListener("click", goToHomeView);
 makeMyBookButton.addEventListener("click", displayUserCover);
 makeMyBookButton.addEventListener("click", preventDefault);
+
+saveCoverButton.addEventListener("click", showButtonsInSavedCoversView);
 
 // Create your event handlers and other functions here 👇
 // WHAT EXACTLY HAPPENS WHEN DO SOMETHING - THESE ARE ALL FUNCTIONS
@@ -76,22 +76,22 @@ function getRandomIndex(array) {
 
 function getRandomCover() {
 	var randomCoverImageIndex = getRandomIndex(covers);
-  coverImage.src = covers[randomCoverImageIndex];
+  return coverImage.src = covers[randomCoverImageIndex];
 }
 
 function getRandomTitle() {
 	var randomTitleImageIndex = getRandomIndex(titles);
-	mainTitle.innerText = titles[randomTitleImageIndex];
+	return mainTitle.innerText = titles[randomTitleImageIndex];
 }
 
 function getRandomDescriptor1() {
 	var randomDescriptorImageIndex1 = getRandomIndex(descriptors);
-	descriptor1.innerText = descriptors[randomDescriptorImageIndex1];
+	return descriptor1.innerText = descriptors[randomDescriptorImageIndex1];
 }
 
 function getRandomDescriptor2() {
 	var randomDescriptorImageIndex2 = getRandomIndex(descriptors);
-	descriptor2.innerText = descriptors[randomDescriptorImageIndex2];
+	return descriptor2.innerText = descriptors[randomDescriptorImageIndex2];
 }
 
 //iteration2
@@ -151,44 +151,9 @@ function goToHomeView() {
   formView.classList.add("hidden");
   homeView.classList.remove("hidden");
   showButtonsInHomeView();
-  preventDefault();
+  // preventDefault();
 }
 
 function preventDefault() {
   event.preventDefault()
 }
-
-//in formView (goToMakeYourOwnPage i think?)
-//when saveCoverButton clicked:
-////saveCoverButton.addEventListener("click", pushSavedCoverInputs);
-////add strings in respective arrays:
-////function pushSavedCoverInputs() {
-////	covers.push(userInputCover)
-////	covers.push(userInputTitle)
-////	covers.push(userInputDescription1)
-////	covers.push(userInputDescription2)
-////}
-////create new instance of Cover class
-//////var newInstanceOfCover = new Cover(userInputCover, userInputTitle, userInputDescription1, userInputDescription2)
-
-//in formView (goToMakeYourOwnPage i think?)
-//when saveCoverButton clicked:
-
-////add strings in respective arrays:
-////function pushSavedCoverInputs() {
-////	covers.push(userInputCover)
-////	titles.push(userInputTitle)
-////	descriptors.push(userInputDescription1)
-////	descriptors.push(userInputDescription2)
-////}
-////create new instance of Cover class
-//////var newInstanceOfCover = new Cover(userInputCover, userInputTitle, userInputDescription1, userInputDescription2)
-
-// function displayUserCover() {
-//   //event.prevent.default();
-//   //console.log("working");
-//   mainTitle.innerText = userInputTitle.value;
-//   coverImage.innerText = userInputCover.value;
-//   descriptor1.innerText = userInputDescription1.value;
-//   descriptor2.innerText = userInputDescription2.value;
-// }
