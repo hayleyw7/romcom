@@ -23,7 +23,7 @@ var userInputCover = document.querySelector(".user-cover");
 var userInputTitle = document.querySelector(".user-title");
 var userInputDescription1 = document.querySelector(".user-desc1");
 var userInputDescription2 = document.querySelector(".user-desc2");
-// var mainCover = document.querySelector(".main-cover");
+var mainCover = document.querySelector(".main-cover");
 var makeMyBookButton = document.querySelector(".create-new-book-button");
 
 
@@ -42,10 +42,12 @@ var currentCover;
 
 //iteration 1
 
-window.addEventListener("load", getRandomCover);
-window.addEventListener("load", getRandomTitle);
-window.addEventListener("load", getRandomDescriptor1);
-window.addEventListener("load", getRandomDescriptor2);
+window.addEventListener("load", generateRandomCover);
+
+// window.addEventListener("load", getRandomCover);
+// window.addEventListener("load", getRandomTitle);
+// window.addEventListener("load", getRandomDescriptor1);
+// window.addEventListener("load", getRandomDescriptor2);
 newRandomCoverButton.addEventListener("click", getRandomCover);
 newRandomCoverButton.addEventListener("click", getRandomTitle);
 newRandomCoverButton.addEventListener("click", getRandomDescriptor1);
@@ -55,15 +57,20 @@ makeYourOwnCoverButton.addEventListener("click", goToMakeYourOwnPage);
 viewSavedCoversButton.addEventListener("click", showButtonsInSavedCoversView);
 homeButton.addEventListener("click", showButtonsInHomeView);
 
-makeMyBookButton.addEventListener("click", pushSavedCoverInputs);
-makeMyBookButton.addEventListener("click", instantiateUserCover);
-makeMyBookButton.addEventListener("click", showButtonsInHomeView);
-
+saveCoverButton.addEventListener("click", pushSavedCoverInputs);
+saveCoverButton.addEventListener("click", instantiateUserCover);
+saveCoverButton.addEventListener("click", showButtonsInHomeView);
+//we were using the wrong button before, I updated it to be the purple
+//make my book button instead (added event listener, did not overwrite)
+//we will need to resolve these event listeners based on that alone
 makeMyBookButton.addEventListener("click", goToHomeView);
 makeMyBookButton.addEventListener("click", displayUserCover);
 makeMyBookButton.addEventListener("click", preventDefault);
 
-saveCoverButton.addEventListener("click", showButtonsInSavedCoversView);
+/// it 4 ash add
+makeMyBookButton.addEventListener("click", pushSavedCoverInputs);
+makeMyBookButton.addEventListener("click", instantiateUserCover);
+saveCoverButton.addEventListener("click", saveCover);
 
 // Create your event handlers and other functions here 👇
 // WHAT EXACTLY HAPPENS WHEN DO SOMETHING - THESE ARE ALL FUNCTIONS
@@ -151,9 +158,25 @@ function goToHomeView() {
   formView.classList.add("hidden");
   homeView.classList.remove("hidden");
   showButtonsInHomeView();
-  // preventDefault();
+  preventDefault();
 }
 
 function preventDefault() {
   event.preventDefault()
+}
+
+//iteration 4
+function generateRandomCover() {
+  var homeCover =  getRandomCover();
+  var homeTitle = getRandomTitle();
+  var homeDescriptor1 = getRandomDescriptor1();
+  var homeDescriptor2 = getRandomDescriptor2();
+  homeCover = new Cover(homeCover, homeTitle, homeDescriptor1, homeDescriptor2);
+  currentCover = homeCover;
+}
+
+function saveCover() {
+  if (!savedCovers.includes(currentCover)) {
+    savedCovers.push(currentCover);
+  }
 }
