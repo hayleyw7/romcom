@@ -1,11 +1,7 @@
-//iteration1
-
 var mainTitle = document.querySelector(".cover-title");
 var coverImage = document.querySelector(".cover-image");
 var descriptor1 = document.querySelector(".tagline-1");
 var descriptor2 = document.querySelector(".tagline-2");
-
-//iteration2
 
 var makeYourOwnCoverButton = document.querySelector(".make-new-button");
 var saveCoverButton = document.querySelector(".save-cover-button");
@@ -17,8 +13,6 @@ var homeView = document.querySelector(".home-view");
 var formView = document.querySelector(".form-view");
 var savedCoversView = document.querySelector(".saved-view");
 
-//iteration 3
-
 var userInputCover = document.querySelector(".user-cover");
 var userInputTitle = document.querySelector(".user-title");
 var userInputDescription1 = document.querySelector(".user-desc1");
@@ -26,10 +20,8 @@ var userInputDescription2 = document.querySelector(".user-desc2");
 var mainCover = document.querySelector(".main-cover");
 var makeMyBookButton = document.querySelector(".create-new-book-button");
 
-//iteration 4
 var  savedCoversSection = document.querySelector(".saved-covers-section");
 
-//iteration 5
 var coverImage = document.querySelector(".cover-image");
 
 
@@ -40,9 +32,6 @@ var savedCovers = [
 var currentCover;
 
 // Add your event listeners here 👇
-// WHICH FUNCTIONS GO WHEN YOU DO SOMETHING
-
-//iteration 1
 
 window.addEventListener("load", generateRandomCover);
 
@@ -53,31 +42,15 @@ makeYourOwnCoverButton.addEventListener("click", goToMakeYourOwnPage);
 viewSavedCoversButton.addEventListener("click", showButtonsInSavedCoversView);
 homeButton.addEventListener("click", showButtonsInHomeView);
 
-// saveCoverButton.addEventListener("click", pushSavedCoverInputs);
-// saveCoverButton.addEventListener("click", instantiateUserCover);
-// saveCoverButton.addEventListener("click", showButtonsInHomeView);
-
 makeMyBookButton.addEventListener("click", goToHomeView);
 makeMyBookButton.addEventListener("click", displayUserCover);
-//makeMyBookButton.addEventListener("click", preventDefault);
 
-/// it 4 ash add
-//makeMyBookButton.addEventListener("click", pushSavedCoverInputs);
-//makeMyBookButton.addEventListener("click", instantiateUserCover);
 saveCoverButton.addEventListener("click", saveCover);
 
-//it 5
 coverImage.addEventListener("dblclick", removeCover());
-//mainCover.addEventListener("dblclick", removeCover(event));
-//overlay.addEventListener("dblclick", removeCover);
-//miniCover.addEventListener("dblclick", removeCover);
-
 
 
 // Create your event handlers and other functions here 👇
-// WHAT EXACTLY HAPPENS WHEN DO SOMETHING - THESE ARE ALL FUNCTIONS
-
-//iteration 1
 
 function getRandomIndex(array) {
   return Math.floor(Math.random()*array.length);
@@ -103,7 +76,6 @@ function getRandomDescriptor2() {
 	return descriptor2.innerText = descriptors[randomDescriptorImageIndex2];
 }
 
-//iteration2
 
 function goToMakeYourOwnPage() {
   formView.classList.remove("hidden");
@@ -127,7 +99,6 @@ function showButtonsInSavedCoversView() {
   saveCoverButton.classList.add("hidden");
   homeButton.classList.remove("hidden");
   iterateSavedCovers();
-  console.log("saved covers view")
 }
 
 function showButtonsInHomeView() {
@@ -140,7 +111,6 @@ function showButtonsInHomeView() {
 
 function instantiateUserCover() {
   var newInstanceOfCover = new Cover(userInputCover.value, userInputTitle.value, userInputDescription1.value, userInputDescription2.value)
-  console.log("instatiate")
   return newInstanceOfCover;
 }
 
@@ -151,7 +121,6 @@ function displayUserCover() {
   coverImage.src = covers[covers.length-1];
   descriptor1.innerText = descriptors[descriptors.length-2];
   descriptor2.innerText = descriptors[descriptors.length-1];
-  console.log("display")
 }
 
 function pushSavedCoverInputs() {
@@ -159,7 +128,6 @@ function pushSavedCoverInputs() {
 	titles.push(userInputTitle.value)
 	descriptors.push(userInputDescription1.value)
 	descriptors.push(userInputDescription2.value)
-  console.log("push")
 }
 
 function goToHomeView() {
@@ -167,14 +135,13 @@ function goToHomeView() {
   homeView.classList.remove("hidden");
   showButtonsInHomeView();
   preventDefault();
-  console.log("homeview")
 }
 
 function preventDefault() {
   event.preventDefault()
 }
 
-//iteration 4
+
 function generateRandomCover() {
   var homeCover =  getRandomCover();
   var homeTitle = getRandomTitle();
@@ -188,24 +155,10 @@ function saveCover() {
   if (!savedCovers.includes(currentCover)) {
     savedCovers.push(currentCover);
   }
-  console.log("save");
 }
-//write an event listener to respond to a double click, that will trigger the
-// removeCoverFromArray, which will then trigger iteratedSavedCovers
-
-//edit the function tied to the savedCoversButton to include the iterateSavedCovers
-//function
-
-//write a function that removes an element from an array as well
-// and returns said array
-
-//call this function in that function to trigger the view reload
 
 function iterateSavedCovers() {
-  //write a variable that will wipe the screen clean to "reset" the page clean
-  // perhaps an empty array? ""?
   savedCoversSection.innerHTML = "";
-//iterate through the array, element by element
   for (var i = 0; i < savedCovers.length; i++) {
   savedCoversSection.innerHTML +=
       `<section class="main-cover">
@@ -217,20 +170,9 @@ function iterateSavedCovers() {
       </section>
        `
   }
-  console.log("iterate saved covers array")
-  //for each iteration, reassign and add to the variable declared at the beginning
-  // of the function and inject the requisite html code into the savedCoversView section.
-  //when injecting, use interpolation to specify which array element
-  //is assigned to which html element
-  //return variable?
 }
 
-//iteration 5
 
-//write an event listener for the double click on the mainCover variable
-//second argument should be this function below
-
-//write a function that will update the savedCovers array
 function removeCover(event) {
   for (var i = 0; i < savedCovers.length; i++) {
     if (savedCovers[i].id === event.target.id) {
@@ -238,6 +180,5 @@ function removeCover(event) {
     }
   }
   iterateSavedCovers();
-  console.log("remove")
   return savedCovers;
 }
