@@ -30,7 +30,7 @@ var makeMyBookButton = document.querySelector(".create-new-book-button");
 var  savedCoversSection = document.querySelector(".saved-covers-section");
 
 //iteration 5
-var overlay = document.querySelector(".overlay");
+var coverImage = document.querySelector(".cover-image");
 
 
 // We've provided a few variables below
@@ -67,8 +67,8 @@ makeMyBookButton.addEventListener("click", displayUserCover);
 saveCoverButton.addEventListener("click", saveCover);
 
 //it 5
-//coverImage.addEventListener("dblclick", removeCover);
-mainCover.addEventListener("dblclick", removeCover(event));
+coverImage.addEventListener("dblclick", removeCover(event));
+//mainCover.addEventListener("dblclick", removeCover(event));
 //overlay.addEventListener("dblclick", removeCover);
 //miniCover.addEventListener("dblclick", removeCover);
 
@@ -127,6 +127,7 @@ function showButtonsInSavedCoversView() {
   saveCoverButton.classList.add("hidden");
   homeButton.classList.remove("hidden");
   iterateSavedCovers();
+  console.log("saved covers view")
 }
 
 function showButtonsInHomeView() {
@@ -208,7 +209,7 @@ function iterateSavedCovers() {
   for (var i = 0; i < savedCovers.length; i++) {
   savedCoversSection.innerHTML +=
       `<section class="main-cover">
-      <img class="cover-image" src="${savedCovers[i].cover}"/>
+      <img class="cover-image" id="${savedCovers[i].id}" src="${savedCovers[i].cover}"/>
       <h2 class="cover-title"> ${savedCovers[i].title} </h2>
       <h3 class="tagline"> A tale of <span class="tagline-1">${savedCovers[i].tagline1}</span> and <span class="tagline-2">${savedCovers[i].tagline2}</span></h3>
       <img class="price-tag" src="./assets/price.png">
@@ -216,6 +217,7 @@ function iterateSavedCovers() {
       </section>
        `
   }
+  console.log("show saved covers array")
   //for each iteration, reassign and add to the variable declared at the beginning
   // of the function and inject the requisite html code into the savedCoversView section.
   //when injecting, use interpolation to specify which array element
@@ -230,10 +232,15 @@ function iterateSavedCovers() {
 
 //write a function that will update the savedCovers array
 function removeCover(event) {
-  console.log("remove")
-  var coverIndex = savedCovers.indexOf(mainCover);
-  savedCovers.splice(coverIndex, 1);
+  for (var i = 0; i < savedCovers.length; i++) {
+    if (savedCovers[i].id === event.target.id) {
+      savedCovers.splice(savedCovers[i], 1)
+    }
+  }
+  // var coverIndex = savedCovers.indexOf(mainCover);
+  // savedCovers.splice(coverIndex, 1);
   iterateSavedCovers();
+  console.log("remove")
   return savedCovers;
 }
 //declare a variable named mainCoverIndex
