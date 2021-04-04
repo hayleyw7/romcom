@@ -67,7 +67,7 @@ makeMyBookButton.addEventListener("click", displayUserCover);
 saveCoverButton.addEventListener("click", saveCover);
 
 //it 5
-coverImage.addEventListener("dblclick", removeCover(event));
+coverImage.addEventListener("dblclick", removeCover());
 //mainCover.addEventListener("dblclick", removeCover(event));
 //overlay.addEventListener("dblclick", removeCover);
 //miniCover.addEventListener("dblclick", removeCover);
@@ -217,7 +217,7 @@ function iterateSavedCovers() {
       </section>
        `
   }
-  console.log("show saved covers array")
+  console.log("iterate saved covers array")
   //for each iteration, reassign and add to the variable declared at the beginning
   // of the function and inject the requisite html code into the savedCoversView section.
   //when injecting, use interpolation to specify which array element
@@ -237,21 +237,7 @@ function removeCover(event) {
       savedCovers.splice(savedCovers[i], 1)
     }
   }
-  // var coverIndex = savedCovers.indexOf(mainCover);
-  // savedCovers.splice(coverIndex, 1);
   iterateSavedCovers();
   console.log("remove")
   return savedCovers;
 }
-//declare a variable named mainCoverIndex
-// use indexOf to find the index of mainCover
-//store this index in the variable stated above
-  //use .splice to remove that index from the array
-  //return savedCovers array (mutated)
-//at the end of function, add the iterateSavedCovers function to update the
-//page load
-
-// store this index in the variable stated
-//or use a return statement to bust out of the loop?
-//or target the id # with an if statement?
-// if savedCovers[i].id === mainCover.id
