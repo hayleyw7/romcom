@@ -27,11 +27,13 @@ var mainCover = document.querySelector(".main-cover");
 var makeMyBookButton = document.querySelector(".create-new-book-button");
 
 //iteration 4
-var  Section = document.querySelector(".saved-covers-section");
+var  savedCoversSection = document.querySelector(".saved-covers-section");
 
 //iteration 5
 //var coverImage = document.querySelector(".cover-image");
-var overlay = document.querySelector(".overlay");
+//var overlay = document.querySelector(".overlay");
+
+
 
 // We've provided a few variables below
 
@@ -70,9 +72,10 @@ makeYourOwnCoverButton.addEventListener("click", goToMakeYourOwnPage);
 viewSavedCoversButton.addEventListener("click", showButtonsInSavedCoversView);
 homeButton.addEventListener("click", showButtonsInHomeView);
 
-saveCoverButton.addEventListener("click", pushSavedCoverInputs);
-saveCoverButton.addEventListener("click", instantiateUserCover);
-saveCoverButton.addEventListener("click", showButtonsInHomeView);
+// saveCoverButton.addEventListener("click", pushSavedCoverInputs);
+// saveCoverButton.addEventListener("click", instantiateUserCover);
+// saveCoverButton.addEventListener("click", showButtonsInHomeView);
+saveCoverButton.addEventListener("click", saveCover);
 //we were using the wrong button before, I updated it to be the purple
 //make my book button instead (added event listener, did not overwrite)
 //we will need to resolve these event listeners based on that alone
@@ -81,15 +84,16 @@ makeMyBookButton.addEventListener("click", displayUserCover);
 makeMyBookButton.addEventListener("click", preventDefault);
 
 /// it 4 ash add
-makeMyBookButton.addEventListener("click", pushSavedCoverInputs);
-makeMyBookButton.addEventListener("click", instantiateUserCover);
-saveCoverButton.addEventListener("click", saveCover);
+//makeMyBookButton.addEventListener("click", pushSavedCoverInputs);
+//makeMyBookButton.addEventListener("click", instantiateUserCover);
+//saveCoverButton.addEventListener("click", saveCover);
 
 //it 5
-//coverImage.addEventListener("dblclick", removeCover);
-mainCover.addEventListener("dblclick", removeCover);
+coverImage.addEventListener("dblclick", removeCover);
+//mainCover.addEventListener("dblclick", removeCover);
 //overlay.addEventListener("dblclick", removeCover);
 //miniCover.addEventListener("dblclick", removeCover);
+//savedCoversSection.addEventListener("dblclick", removeCover)
 
 
 
@@ -157,9 +161,10 @@ function showButtonsInHomeView() {
 }
 
 function instantiateUserCover() {
+  //console.log("working");
   var newInstanceOfCover = new Cover(userInputCover.value, userInputTitle.value, userInputDescription1.value, userInputDescription2.value)
   return newInstanceOfCover;
-  displayUserCover();
+  //displayUserCover();
 }
 
 function displayUserCover() {
@@ -168,6 +173,8 @@ function displayUserCover() {
   coverImage.src = covers[covers.length-1];
   descriptor1.innerText = descriptors[descriptors.length-2];
   descriptor2.innerText = descriptors[descriptors.length-1];
+  instantiateUserCover();
+  pushSavedCoverInputs();
 }
 
 function pushSavedCoverInputs() {
@@ -181,7 +188,6 @@ function goToHomeView() {
   formView.classList.add("hidden");
   homeView.classList.remove("hidden");
   showButtonsInHomeView();
-  preventDefault();
 }
 
 function preventDefault() {
@@ -217,12 +223,13 @@ function saveCover() {
 function iterateSavedCovers() {
   //write a variable that will wipe the screen clean to "reset" the page clean
   // perhaps an empty array? ""?
+  //console.log("working")
   savedCoversSection.innerHTML = "";
 //iterate through the array, element by element
   for (var i = 0; i < savedCovers.length; i++) {
   savedCoversSection.innerHTML +=
       `<section class="main-cover">
-      <img class="cover-image" src="${savedCovers[i].cover}"/>
+      <img class="cover-image" id="${savedCovers[i].id} "src="${savedCovers[i].cover}"/>
       <h2 class="cover-title"> ${savedCovers[i].title} </h2>
       <h3 class="tagline"> A tale of <span class="tagline-1">${savedCovers[i].tagline1}</span> and <span class="tagline-2">${savedCovers[i].tagline2}</span></h3>
       <img class="price-tag" src="./assets/price.png">
@@ -243,10 +250,16 @@ function iterateSavedCovers() {
 //second argument should be this function below
 
 //write a function that will update the savedCovers array
-function removeCover() {
-  console.log("working")
-  var coverIndex = savedCovers.indexOf(mainCover);
-  savedCovers.splice(coverIndex, 1);
+function removeCover(event) {
+  // console.log("working")
+  //forloop
+  var cover = event.target
+  for(var i = 0; i < savedCovers.length; i++) {
+    if (savedCovers[i].id === cover.id)
+    savedCovers.splice(savedCovers[i], 1);
+  }
+  //var coverIndex = savedCovers.indexOf(mainCover);
+  //savedCovers.splice(coverIndex, 1);
   iterateSavedCovers();
   return savedCovers;
 }
