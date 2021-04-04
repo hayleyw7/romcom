@@ -26,6 +26,9 @@ var userInputDescription2 = document.querySelector(".user-desc2");
 var mainCover = document.querySelector(".main-cover");
 var makeMyBookButton = document.querySelector(".create-new-book-button");
 
+//iteration 4
+var savedCoversSection = document.querySelector(".saved-covers-section");
+
 
 // We've provided a few variables below
 
@@ -71,7 +74,6 @@ makeMyBookButton.addEventListener("click", preventDefault);
 makeMyBookButton.addEventListener("click", pushSavedCoverInputs);
 makeMyBookButton.addEventListener("click", instantiateUserCover);
 saveCoverButton.addEventListener("click", saveCover);
-saveCoverButton.addEventListener("click", showButtonsInSavedCoversView);
 
 // Create your event handlers and other functions here 👇
 // WHAT EXACTLY HAPPENS WHEN DO SOMETHING - THESE ARE ALL FUNCTIONS
@@ -113,7 +115,7 @@ function goToMakeYourOwnPage() {
 function showButtonsInFormView() {
    newRandomCoverButton.classList.add("hidden");
    saveCoverButton.classList.add("hidden");
-   homeButton.classList.remove("hidden")
+   homeButton.classList.remove("hidden");
 }
 
 function showButtonsInSavedCoversView() {
@@ -124,7 +126,7 @@ function showButtonsInSavedCoversView() {
   newRandomCoverButton.classList.add("hidden");
   saveCoverButton.classList.add("hidden");
   homeButton.classList.remove("hidden");
-  viewSavedCoversButton.classList.add("hidden");
+  iterateSavedCovers();
 }
 
 function showButtonsInHomeView() {
@@ -181,4 +183,41 @@ function saveCover() {
   if (!savedCovers.includes(currentCover)) {
     savedCovers.push(currentCover);
   }
+}
+//write an event listener to respond to a double click, that will trigger the
+// removeCoverFromArray, which will then trigger iteratedSavedCovers
+
+//edit the function tied to the savedCoversButton to include the iterateSavedCovers
+//function
+
+//write a function that removes an element from an array as well
+// and returns said array
+
+//call this function in that function to trigger the view reload
+
+function iterateSavedCovers() {
+  //write a variable that will wipe the screen clean to "reset" the page clean
+  // perhaps an empty array? ""?
+  savedCoversSection.innerHTML = "";
+//iterate through the array, element by element
+  for (var i = 0; i < savedCovers.length; i++) {
+  savedCoversSection.innerHTML +=
+      `<section class="main-cover">
+      <img class="cover-image" src="${savedCovers[i].cover}"/>
+      <h2 class="cover-title"> ${savedCovers[i].title} </h2>
+      <h3 class="tagline"> A tale of <span class="tagline-1">${savedCovers[i].tagline1}</span> and <span class="tagline-2">${savedCovers[i].tagline2}</span></h3>
+      <img class="price-tag" src="./assets/price.png">
+      <img class="overlay" src="./assets/overlay.png">
+      </section>
+       `
+  }
+
+
+
+  //for each iteration, reassign and add to the variable declared at the beginning
+  // of the function and inject the requisite html code into the savedCoversView section.
+  //when injecting, use interpolation to specify which array element
+  //is assigned to which html element
+  //return variable?
+
 }
