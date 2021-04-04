@@ -27,21 +27,17 @@ var mainCover = document.querySelector(".main-cover");
 var makeMyBookButton = document.querySelector(".create-new-book-button");
 
 //iteration 4
-var  Section = document.querySelector(".saved-covers-section");
+var  savedCoversSection = document.querySelector(".saved-covers-section");
 
 //iteration 5
-//var coverImage = document.querySelector(".cover-image");
 var overlay = document.querySelector(".overlay");
 
-// We've provided a few variables below
 
-////// DO NOT TOUCH THE 4 LINES BELOW THIS!
+// We've provided a few variables below
 var savedCovers = [
   new Cover("http://3.bp.blogspot.com/-iE4p9grvfpQ/VSfZT0vH2UI/AAAAAAAANq8/wwQZssi-V5g/s1600/Do%2BNot%2BForsake%2BMe%2B-%2BImage.jpg", "Sunsets and Sorrows", "sunsets", "sorrows")
 ];
 var currentCover;
-////// DO NOT TOUCH THE 4 LINES ABOVE THIS!
-
 
 // Add your event listeners here 👇
 // WHICH FUNCTIONS GO WHEN YOU DO SOMETHING
@@ -50,44 +46,29 @@ var currentCover;
 
 window.addEventListener("load", generateRandomCover);
 
-// window.addEventListener("load", getRandomCover);
-// window.addEventListener("load", getRandomTitle);
-// window.addEventListener("load", getRandomDescriptor1);
-// window.addEventListener("load", getRandomDescriptor2);
-//Added April 3
 newRandomCoverButton.addEventListener("click", generateRandomCover);
-//
-
-//newRandomCoverButton.addEventListener("click", getRandomCover);
-// newRandomCoverButton.addEventListener("click", getRandomTitle);
-// newRandomCoverButton.addEventListener("click", getRandomDescriptor1);
-// newRandomCoverButton.addEventListener("click", getRandomDescriptor2);
 
 makeYourOwnCoverButton.addEventListener("click", goToMakeYourOwnPage);
-//added April 3
-//makeYourOwnCoverButton.addEventListener("click", showButtonsInFormView);
-//
+
 viewSavedCoversButton.addEventListener("click", showButtonsInSavedCoversView);
 homeButton.addEventListener("click", showButtonsInHomeView);
 
-saveCoverButton.addEventListener("click", pushSavedCoverInputs);
-saveCoverButton.addEventListener("click", instantiateUserCover);
-saveCoverButton.addEventListener("click", showButtonsInHomeView);
-//we were using the wrong button before, I updated it to be the purple
-//make my book button instead (added event listener, did not overwrite)
-//we will need to resolve these event listeners based on that alone
+// saveCoverButton.addEventListener("click", pushSavedCoverInputs);
+// saveCoverButton.addEventListener("click", instantiateUserCover);
+// saveCoverButton.addEventListener("click", showButtonsInHomeView);
+
 makeMyBookButton.addEventListener("click", goToHomeView);
 makeMyBookButton.addEventListener("click", displayUserCover);
-makeMyBookButton.addEventListener("click", preventDefault);
+//makeMyBookButton.addEventListener("click", preventDefault);
 
 /// it 4 ash add
-makeMyBookButton.addEventListener("click", pushSavedCoverInputs);
-makeMyBookButton.addEventListener("click", instantiateUserCover);
+//makeMyBookButton.addEventListener("click", pushSavedCoverInputs);
+//makeMyBookButton.addEventListener("click", instantiateUserCover);
 saveCoverButton.addEventListener("click", saveCover);
 
 //it 5
 //coverImage.addEventListener("dblclick", removeCover);
-mainCover.addEventListener("dblclick", removeCover);
+mainCover.addEventListener("dblclick", removeCover(event));
 //overlay.addEventListener("dblclick", removeCover);
 //miniCover.addEventListener("dblclick", removeCover);
 
@@ -158,16 +139,18 @@ function showButtonsInHomeView() {
 
 function instantiateUserCover() {
   var newInstanceOfCover = new Cover(userInputCover.value, userInputTitle.value, userInputDescription1.value, userInputDescription2.value)
+  console.log("instatiate")
   return newInstanceOfCover;
-  displayUserCover();
 }
 
 function displayUserCover() {
+  instantiateUserCover()
   pushSavedCoverInputs();
   mainTitle.innerText = titles[titles.length-1];
   coverImage.src = covers[covers.length-1];
   descriptor1.innerText = descriptors[descriptors.length-2];
   descriptor2.innerText = descriptors[descriptors.length-1];
+  console.log("display")
 }
 
 function pushSavedCoverInputs() {
@@ -175,6 +158,7 @@ function pushSavedCoverInputs() {
 	titles.push(userInputTitle.value)
 	descriptors.push(userInputDescription1.value)
 	descriptors.push(userInputDescription2.value)
+  console.log("push")
 }
 
 function goToHomeView() {
@@ -182,6 +166,7 @@ function goToHomeView() {
   homeView.classList.remove("hidden");
   showButtonsInHomeView();
   preventDefault();
+  console.log("homeview")
 }
 
 function preventDefault() {
@@ -202,6 +187,7 @@ function saveCover() {
   if (!savedCovers.includes(currentCover)) {
     savedCovers.push(currentCover);
   }
+  console.log("save");
 }
 //write an event listener to respond to a double click, that will trigger the
 // removeCoverFromArray, which will then trigger iteratedSavedCovers
@@ -243,8 +229,8 @@ function iterateSavedCovers() {
 //second argument should be this function below
 
 //write a function that will update the savedCovers array
-function removeCover() {
-  console.log("working")
+function removeCover(event) {
+  console.log("remove")
   var coverIndex = savedCovers.indexOf(mainCover);
   savedCovers.splice(coverIndex, 1);
   iterateSavedCovers();
