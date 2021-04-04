@@ -27,8 +27,11 @@ var mainCover = document.querySelector(".main-cover");
 var makeMyBookButton = document.querySelector(".create-new-book-button");
 
 //iteration 4
-var savedCoversSection = document.querySelector(".saved-covers-section");
+var  Section = document.querySelector(".saved-covers-section");
 
+//iteration 5
+//var coverImage = document.querySelector(".cover-image");
+var overlay = document.querySelector(".overlay");
 
 // We've provided a few variables below
 
@@ -51,12 +54,19 @@ window.addEventListener("load", generateRandomCover);
 // window.addEventListener("load", getRandomTitle);
 // window.addEventListener("load", getRandomDescriptor1);
 // window.addEventListener("load", getRandomDescriptor2);
-newRandomCoverButton.addEventListener("click", getRandomCover);
-newRandomCoverButton.addEventListener("click", getRandomTitle);
-newRandomCoverButton.addEventListener("click", getRandomDescriptor1);
-newRandomCoverButton.addEventListener("click", getRandomDescriptor2);
+//Added April 3
+newRandomCoverButton.addEventListener("click", generateRandomCover);
+//
+
+//newRandomCoverButton.addEventListener("click", getRandomCover);
+// newRandomCoverButton.addEventListener("click", getRandomTitle);
+// newRandomCoverButton.addEventListener("click", getRandomDescriptor1);
+// newRandomCoverButton.addEventListener("click", getRandomDescriptor2);
 
 makeYourOwnCoverButton.addEventListener("click", goToMakeYourOwnPage);
+//added April 3
+//makeYourOwnCoverButton.addEventListener("click", showButtonsInFormView);
+//
 viewSavedCoversButton.addEventListener("click", showButtonsInSavedCoversView);
 homeButton.addEventListener("click", showButtonsInHomeView);
 
@@ -74,6 +84,14 @@ makeMyBookButton.addEventListener("click", preventDefault);
 makeMyBookButton.addEventListener("click", pushSavedCoverInputs);
 makeMyBookButton.addEventListener("click", instantiateUserCover);
 saveCoverButton.addEventListener("click", saveCover);
+
+//it 5
+//coverImage.addEventListener("dblclick", removeCover);
+mainCover.addEventListener("dblclick", removeCover);
+//overlay.addEventListener("dblclick", removeCover);
+//miniCover.addEventListener("dblclick", removeCover);
+
+
 
 // Create your event handlers and other functions here 👇
 // WHAT EXACTLY HAPPENS WHEN DO SOMETHING - THESE ARE ALL FUNCTIONS
@@ -109,6 +127,7 @@ function getRandomDescriptor2() {
 function goToMakeYourOwnPage() {
   formView.classList.remove("hidden");
   homeView.classList.add("hidden");
+  savedCoversView.classList.add("hidden");
   showButtonsInFormView();
 }
 
@@ -211,13 +230,35 @@ function iterateSavedCovers() {
       </section>
        `
   }
-
-
-
   //for each iteration, reassign and add to the variable declared at the beginning
   // of the function and inject the requisite html code into the savedCoversView section.
   //when injecting, use interpolation to specify which array element
   //is assigned to which html element
   //return variable?
-
 }
+
+//iteration 5
+
+//write an event listener for the double click on the mainCover variable
+//second argument should be this function below
+
+//write a function that will update the savedCovers array
+function removeCover() {
+  console.log("working")
+  var coverIndex = savedCovers.indexOf(mainCover);
+  savedCovers.splice(coverIndex, 1);
+  iterateSavedCovers();
+  return savedCovers;
+}
+//declare a variable named mainCoverIndex
+// use indexOf to find the index of mainCover
+//store this index in the variable stated above
+  //use .splice to remove that index from the array
+  //return savedCovers array (mutated)
+//at the end of function, add the iterateSavedCovers function to update the
+//page load
+
+// store this index in the variable stated
+//or use a return statement to bust out of the loop?
+//or target the id # with an if statement?
+// if savedCovers[i].id === mainCover.id
